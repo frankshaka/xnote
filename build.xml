@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main">
+    
+    <target name="init">
+        <property name="buildBase" value="." />
+        <property name="srcDir" value="${buildBase}/src" />
+        <property name="binDir" value="${buildBase}/bin" />
+        <property name="libDir" value="${buildBase}/lib" />
+        <property name="buildDir" value="${buildBase}/build" />
+        <property name="jarFile" value="${buildDir}/xnote.jar" />
+        <property name="miscDir" value="${buildBase}/misc" />
+    </target>
+    
+    <target name="jar" depends="init">
+        <delete dir="${binDir}" />
+        <mkdir dir="${binDir}" />
+        
+        <javac 
+            srcdir="${srcDir}"
+            destdir="${binDir}">
+            <classpath>
+                <fileset dir="${libDir}">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <mkdir dir="${buildDir}" />
+        <jar 
+            destfile="${jarFile}"
+            manifest="${buildBase}/META-INF/MANIFEST.MF">
+            <fileset dir="${binDir}" />
+        </jar>
+        <copy todir="${buildDir}">
+            <fileset dir="${libDir}" />
+        </copy>
+        
+        <delete dir="${binDir}" />
+    </target>
+    
+    <target name="macapp" depends="init,jar">
+        <!-- Initialize properties: -->
+        <property name="appDir" value="${buildDir}/XNote.app" />
+        <property name="appLibDir" value="${appDir}/Contents/Library" />
+
+        <!-- Copy bundle template: -->
+        <delete dir="${appDir}" />
+        <mkdir dir="${appDir}" />
+        <copy todir="${appDir}">
+            <fileset dir="${miscDir}/XNote-template.app" />
+        </copy>
+        <chmod file="${appDir}/Contents/MacOS/xnote" perm="755" />
+        
+        <!-- Copy binary and library files: -->
+        <mkdir dir="${appLibDir}" />
+        <copy file="${jarFile}" todir="${appLibDir}" />
+        <copy todir="${appLibDir}">
+            <fileset dir="${libDir}" />
+        </copy>
+        <delete file="${jarFile}" />
+        <delete>
+            <fileset dir="${buildDir}">
+                <include name="*.jar" />
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="main" depends="init,jar" />
+    
+</project>

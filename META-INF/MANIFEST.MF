@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: . swt.jar
+Main-Class: org.frankshaka.xnote.Main

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013 Frank Shaka
+ * 
+ * http://www.gnu.org/licenses/lgpl.html
+ */
 package org.frankshaka.xnote;
 
 import java.io.File;
