@@ -65,6 +65,11 @@
         </delete>
     </target>
     
-    <target name="main" depends="init,jar" />
+    <target name="main">
+        <echo message="Usage: ant -f build.xml TARGET" />
+        <echo message="Available targets:" />
+        <echo message="  macapp  - Make .app bundle" />
+        <echo message="  jar     - Build xnote.jar" />
+    </target>
     
 </project>

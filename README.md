@@ -24,7 +24,7 @@ The `XNote.app` will be generated in the `build` folder. Move it to `/Applicatio
 To build `xnote.jar` only, type and run these in Terminal:
 
 ```bash
-$ ant -f build.xml
+$ ant -f build.xml jar
 ```
 
 The `xnote.jar` will be generated in the `build` folder. Note that `swt.jar` should always be copied with `xnote.jar` in the same folder.
